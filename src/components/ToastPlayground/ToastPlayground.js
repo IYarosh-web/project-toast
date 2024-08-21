@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '../Button';
+import Toast from "../Toast";
 
 import styles from './ToastPlayground.module.css';
 
@@ -10,6 +11,24 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState("");
   const [selectedVariant, setSelectedVariant] = React.useState(VARIANT_OPTIONS[0]);
 
+  const [showToast, setShowToast] = React.useState(false);
+
+  const handleSubmit = React.useCallback(
+    (e) => {
+      e.preventDefault();
+
+      setShowToast(true);
+    },
+    [],
+  );
+
+  const dismissToast = React.useCallback(
+    () => {
+      setShowToast(false);
+    },
+    [],
+  );
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -17,7 +36,16 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <div className={styles.controlsWrapper}>
+      {showToast && (
+        <Toast
+          id={""}
+          variant={selectedVariant}
+          message={message}
+          onDismiss={dismissToast}
+        />
+      )}
+
+      <form action='#' onSubmit={handleSubmit} className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label
             htmlFor="message"
@@ -65,10 +93,15 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button>Pop Toast!</Button>
+            <Button
+              type="submit"
+            >
+              Pop Toast!
+            </Button>
           </div>
         </div>
-      </div>
+      </form>
+
     </div>
   );
 }

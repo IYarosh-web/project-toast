@@ -18,16 +18,30 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast() {
+function Toast({
+  id,
+  variant,
+  message,
+  onDismiss,
+}) {
+  const InfoTag = ICONS_BY_VARIANT[variant];
+
+  const handleDismiss = React.useCallback(
+    () => {
+      onDismiss(id);
+    },
+    [id, onDismiss],
+  );
+
   return (
-    <div className={`${styles.toast} ${styles.notice}`}>
+    <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        <InfoTag size={24} />
       </div>
       <p className={styles.content}>
-        16 photos have been uploaded
+        {message}
       </p>
-      <button className={styles.closeButton}>
+      <button onClick={handleDismiss} className={styles.closeButton}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
