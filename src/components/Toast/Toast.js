@@ -21,7 +21,7 @@ const ICONS_BY_VARIANT = {
 function Toast({
   id,
   variant,
-  message,
+  children,
   onDismiss,
 }) {
   const InfoTag = ICONS_BY_VARIANT[variant];
@@ -39,7 +39,7 @@ function Toast({
         <InfoTag size={24} />
       </div>
       <p className={styles.content}>
-        {message}
+        {children}
       </p>
       <button onClick={handleDismiss} className={styles.closeButton}>
         <X size={24} />
