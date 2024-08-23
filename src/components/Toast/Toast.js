@@ -39,11 +39,20 @@ function Toast({
         <InfoTag size={24} />
       </div>
       <p className={styles.content}>
+        {variant === "error" && (
+          <VisuallyHidden>
+            error - 
+          </VisuallyHidden>
+        )}
         {children}
       </p>
-      <button onClick={handleDismiss} className={styles.closeButton}>
+      <button
+        className={styles.closeButton}
+        aria-label="Dismiss message"
+        aria-live="off"
+        onClick={handleDismiss}
+      >
         <X size={24} />
-        <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
   );
