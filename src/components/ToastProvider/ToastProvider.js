@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useEscapeKey } from '../../hooks/useEscapeKey';
+
 import ToastShelf from "../ToastShelf";
 import Toast from '../Toast';
 
@@ -27,19 +29,7 @@ function ToastProvider({
     [],
   );
 
-  React.useEffect(
-    () => {
-      const keyboardHandler = (e) => {
-        if (e.key === "Escape") {
-          setToasts([]);
-        }
-      }
-      window.addEventListener("keydown", keyboardHandler);
-
-      return () => window.removeEventListener("keydown", keyboardHandler);
-    },
-    [],
-  );
+  useEscapeKey(() => setToasts([]));
 
   return (
     <ToastContext.Provider
